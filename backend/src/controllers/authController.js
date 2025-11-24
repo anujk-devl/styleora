@@ -24,10 +24,10 @@ export const register = async (req, res) => {
     const token = createToken(user._id);
 
     res.cookie("token", jwtToken, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 24 * 60 * 60 * 1000,
 });
 res.json({ user: { _id: user._id, name: user.name, email: user.email } });
   } catch (err) {
