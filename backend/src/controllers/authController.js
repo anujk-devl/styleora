@@ -23,13 +23,13 @@ export const register = async (req, res) => {
 
     const token = createToken(user._id);
 
-    res
-      .cookie("styleora_token", token, {
-        httpOnly: true,
-        sameSite: "lax",
-        secure: false,
-      })
-      .json({ id: user._id, name: user.name, email: user.email });
+    res.cookie("token", jwtToken, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 24 * 60 * 60 * 1000,
+});
+res.json({ user: { _id: user._id, name: user.name, email: user.email } });
   } catch (err) {
     console.error("Register error:", err);
     res.status(500).json({ error: "Server error" });
