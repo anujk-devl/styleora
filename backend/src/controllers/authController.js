@@ -25,10 +25,12 @@ export const register = async (req, res) => {
 
     res.cookie("token", jwtToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 24 * 60 * 60 * 1000,
+    secure: true,       
+    sameSite: "none",    
+    maxAge: 24 * 60 * 60 * 1000
 });
+res.json({ user: { _id: user._id, name: user.name, email: user.email } }); 
+
 res.json({ user: { _id: user._id, name: user.name, email: user.email } });
   } catch (err) {
     console.error("Register error:", err);
@@ -48,10 +50,11 @@ export const login = async (req, res) => {
     const token = createToken(user._id);
 
     res
-      .cookie("styleora_token", token, {
+      .cookie("token", token, {
         httpOnly: true,
-        sameSite: "lax",
-        secure: false,
+        sameSite: "none",
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000
       })
       .json({ id: user._id, name: user.name, email: user.email });
   } catch (err) {
